@@ -7,26 +7,26 @@ You can use IAM role or your access keys.
 
 sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
-# sudo chmod +x ./kubectl
+```sudo chmod +x ./kubectl
 
-# sudo mv ./kubectl /usr/local/bin/kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 
 ##sudo curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 
 
  sudo chmod +x kops-linux-amd64
-# sudo mv kops-linux-amd64 /usr/local/bin/kops
-# sudo kubectl cluster-info
-# sudo kubectl cluster-info dump
-# sudo echo "source <(kubectl completion bash)" >> ~/.bashrc
-# sudo kubectl version
-# sudo snap install kubectl --classic
-# sudo apt-get install software-properties-common
-# sudo apt-add-repository universe
-# sudo apt-get update
-# sudo apt-get install python-pip
-# sudo pip install --upgrade pip
-# sudo pip install awscli
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+sudo kubectl cluster-info
+sudo kubectl cluster-info dump
+sudo echo "source <(kubectl completion bash)" >> ~/.bashrc
+sudo kubectl version
+sudo snap install kubectl --classic
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-pip
+sudo pip install --upgrade pip
+sudo pip install awscli```
 
 
 Then in AWS go to identity access manager, get the user below keys, as they would help to execute aws rest api through cmd line.
