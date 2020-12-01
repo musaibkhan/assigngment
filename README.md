@@ -142,9 +142,3 @@ helm install prometheus stable/prometheus-operator --namespace monitoring
 kubectl get po -n monitoring
 
 
-
-
-
-
-
-
