@@ -1,9 +1,9 @@
 You need a controller to run all these commands and it must be having sufficient permission to perform the task.
 You can use IAM role or your access keys.
 
-##sudo hostnamectl set-hostname test
+sudo hostnamectl set-hostname test
 
-##Install Kubectl binaries
+Install Kubectl binaries
 
 sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
