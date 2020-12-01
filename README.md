@@ -1,3 +1,4 @@
+https://dev.to/sword-health/seamless-ci-cd-with-jenkins-helm-and-kubernetes-5e00
 You need a controller to run all these commands and it must be having sufficient permission to perform the task.
 You can use IAM role or your access keys.
 
