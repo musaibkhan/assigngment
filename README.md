@@ -130,7 +130,7 @@ create a persistentvolumeclaim and storage class for Jenkins.
 
 It will create EBS volume 
 
-`Create storage.yml
+Create storage.yml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -144,7 +144,7 @@ mountOptions:
   
 than create a pvc.yml
 ---
-`kind: PersistentVolumeClaim
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: jenkinsagclass
@@ -153,11 +153,58 @@ spec:
   storageClassName: standard
   accessModes:
   -  ReadWriteOnce
-  `resources:
+  resources:
     requests:
-      storage: 5Gi`
+      storage: 5Gi
+      
 
 ![](images/Selection_634.png)
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-server
+  namespace: development
+  labels:
+     app: jenkins-server
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+     app: jenkins-server
+  template:
+    metadata:
+       labels:
+        app: jenkins-server
+    spec:
+      securityContext:
+         fsGroup: 110
+      containers:
+      - name: jenkins-server
+        image:  jenkins/jenkins:latest
+        imagePullPolicy:  IfNotPresent
+        securityContext:
+          privileged: true
+        ports:
+        - name: jenkinsport
+          containerPort: 9090
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4096Mi
+          requests:
+            cpu: 500m
+            memory: 2000Mi
+        volumeMounts:
+        - name: jenkins-dir
+          mountPath:  /var/lib/jenkins
+      imagePullSecrets:
+      volumes:
+      - name: jenkins-dir
+        persistentVolumeClaim:
+           claimName: jenkinsagclass
 
 
 
