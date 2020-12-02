@@ -1,14 +1,26 @@
-https://dev.to/sword-health/seamless-ci-cd-with-jenkins-helm-and-kubernetes-5e00
-You need a controller to run all these commands and it must be having sufficient permission to perform the task.
+# Creating High Available Kuberenets CLuster with Kops on AWS
+
+Prequites: AWS Account
+           have sufficent access to creates aws services, like route53, s3 bucket, elb etc
+	   This may cost you.
+	   Terraform
+	   
+We will create a instance on aws using terraform:
+
+![](images/Selection_632.png)
+	   
+
+
+You need  to run all these commands on controller and it must be having sufficient permission to perform the task.
 You can use IAM role or your access keys.
 
 sudo hostnamectl set-hostname test
 
-Install Kubectl binaries
+## Install Kubectl binaries
 
 sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
-```sudo chmod +x ./kubectl
+sudo chmod +x ./kubectl
 
 sudo mv ./kubectl /usr/local/bin/kubectl
 
@@ -27,7 +39,7 @@ sudo apt-add-repository universe
 sudo apt-get update
 sudo apt-get install python-pip
 sudo pip install --upgrade pip
-sudo pip install awscli```
+sudo pip install awscli
 
 
 Then in AWS go to identity access manager, get the user below keys, as they would help to execute aws rest api through cmd line.
@@ -42,7 +54,7 @@ put_ur_secret_access_key:
 OR assign IAM role
 
 
-Now create domain and add a Route to Route53 in AWS.
+## Now create domain and add a Route to Route53 in AWS.
 
 Basically create the Hosted zone record for the domain.
 if the domain is already registered outside, then go the outside portal, change the NS server to AWS.
@@ -83,23 +95,24 @@ Useful cmds
 
 
 
-```Once Done, save and exit.
-# kops update cluster  --name=cluster-name  --state=s3://bucket-name
-# kops update cluster  --name=cluster-name  --state=s3://bucket-name  --yes
-# kops rolling-update cluster --name=cluster-name  --state=s3://bucket-name  --yes
-# kops rolling-update cluster --yes```
+Once Done, save and exit.
+ kops update cluster  --name=cluster-name  --state=s3://bucket-name
+ kops update cluster  --name=cluster-name  --state=s3://bucket-name  --yes
+ kops rolling-update cluster --name=cluster-name  --state=s3://bucket-name  --yes
+ kops rolling-update cluster --yes
 
 
 =========================================================================================================
-Helm setup:
+## Helm setup:
 
-# sudo curl -O https://storage.googleapis.com/kubernetes-helm/helm-v3.4.0-linux-amd64.tar.gz
-# sudo tar -zxvf  helm-v3.4.0-linux-amd64.tar.gz
-# sudo mv linux-amd64/helm /usr/local/bin/helm
-# kubectl create serviceaccount --namespace kube-system helm
-# kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:helm
-# helm init
+ sudo curl -O https://storage.googleapis.com/kubernetes-helm/helm-v3.4.0-linux-amd64.tar.gz
+ sudo tar -zxvf  helm-v3.4.0-linux-amd64.tar.gz
+ sudo mv linux-amd64/helm /usr/local/bin/helm
+ kubectl create serviceaccount --namespace kube-system helm
+ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:helm
+ helm init
 
+![](images/Selection_633.png)
 
 High Level Jenkins deployment
 
