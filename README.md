@@ -3,6 +3,7 @@
 
 ## Prerequisites
 Before you begin this guide you’ll need the following:
+```
 Familiarity with AWS (of course), along with an AWS account
 Domain to access Kubernetes APIs
 Hosted Zone in Route53 for the Domain
@@ -11,6 +12,7 @@ IAM user with full S3, EC2, Route53 and VPC access
 Linux machine as deployment server, preferably Ubuntu 16.04 or later
 AWS-CLI version 1.16 or abovecost you.
 Terraform
+```
 	   
 We will create a instance on aws using terraform:
 
@@ -233,7 +235,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: jyour-doamin-name
+  - host: your-doamin-name
     http:
       paths:
       - path: /
@@ -262,5 +264,49 @@ When you get confident enough with the quality of the version, you would start r
 
 It can be seen as an advanced usage of one of the previous strategies: Use any strategy that you’d like to introduce new code into the system, with the key difference of allowing real users to use the new version in production. Naturally, you wouldn’t want all users to get all new, premature features, so you’ll want to control which users get which pieces of the new version. This can be implemented at the load balancing/proxy layer, using application settings, at runtime, or any other way that works for you.
 
+# Create Jenkins CI/CD pipeline for your Application:
+
+```
+pipeline {
+    agent {
+        kubernetes {
+            label 'my-app'
+            yamlFile 'JenkinsKubernetesPod.yaml'
+        }
+    }
+    stages {
+        stage('Run unit tests') {
+            steps {
+              // The needed steps for your testing
+            }
+        }
+
+        stage('Build application') {
+            steps {
+              // Build the app
+            }
+        }
+
+        stage('Docker publish') {
+            steps {
+              // Publish a docker image for your application 
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                script {
+                  container('helm') {
+                      // Init authentication and config for your kubernetes cluster
+                      sh("helm init --client-only --skip-refresh")
+                      sh("helm upgrade --install --wait frontend ./helm-guestbook --namespace development")
+                    }
+                }
+            }
+        }
+    }
+}
+```
+![](![](images/Selection_638.png)
 
 
