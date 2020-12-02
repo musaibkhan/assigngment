@@ -141,7 +141,6 @@ parameters:
 reclaimPolicy: Retain
 mountOptions:
   - debug
-  
 than create a pvc.yml
 ---
 kind: PersistentVolumeClaim
@@ -160,6 +159,7 @@ spec:
 
 ![](images/Selection_634.png)
 
+```
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -206,7 +206,7 @@ spec:
         persistentVolumeClaim:
            claimName: jenkinsagclass
 
-
+```
 
 
 Setup Grafana and Promethrous
