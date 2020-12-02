@@ -217,5 +217,50 @@ kubectl get po -n monitoring
 ```
 ![](images/Selection_635.png)
 
+![](images/Selection_636.png)
+
+# for domain access install Nginx Ccntroller
+
+create ingress rules for guestbook app and got Grafana.
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: jyour-doamin-name
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-server-service
+          servicePort: 9090
+
+```
+
+# Deploy GuestBook App and Deplpoy.
+```
+git clone https://github.com/kubernetes/examples.git
+```
+
+make sure all the pods are in running state.
+
+![](images/Selection_637.png)
+
+# BlueGreen Deployment 
+
+This is the safest strategy, and is used by many for production workloads. To provide that safety, we won’t touch anything that’s currently running, and provision an entire copy of the application, or the module we are upgrading aside.
+Once the new version is live, you should test it however and how long you need to. Since the current version is still live and serving, there’s no rush to finalize the deployment. At this point users are still unaware of the update.
+When you get confident enough with the quality of the version, you would start routing users to the new version instead of the old version. It can be all users at once (a.k.a cut-off or cut-over), or gradually add more users to the new version.
+
+# Canary Deployment
+
+It can be seen as an advanced usage of one of the previous strategies: Use any strategy that you’d like to introduce new code into the system, with the key difference of allowing real users to use the new version in production. Naturally, you wouldn’t want all users to get all new, premature features, so you’ll want to control which users get which pieces of the new version. This can be implemented at the load balancing/proxy layer, using application settings, at runtime, or any other way that works for you.
+
 
 
