@@ -207,8 +207,26 @@ spec:
            claimName: jenkinsagclass
 
 ```
-
-
+Create a service for jenkins.
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-server-service
+  namespace: development
+spec:
+  ports:
+  - name: jenkins
+    port: 9090
+    protocol: TCP
+    targetPort: jenkinsport
+  - name: ssh
+    port: 2222
+    protocol: TCP
+    targetPort: sshport
+  selector:
+    app: jenkins-server
+```
 # Setup Grafana and Promethrous
 ```
 kubectl create namespace monitoring
