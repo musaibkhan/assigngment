@@ -1,4 +1,4 @@
-# Creating High Available Kuberenets CLuster with Kops on AWS
+# Creating High Available Kuberenets Cluster with Kops on AWS
 
 
 ## Prerequisites
@@ -53,7 +53,7 @@ Then in AWS go to identity access manager, get the user below keys, as they woul
 Access key id:
 Secret Access key:
 
-# aws configure
+## aws configure
 
 put_ur_access_key:
 put_ur_secret_access_key:
@@ -68,8 +68,8 @@ if the domain is already registered outside, then go the outside portal, change 
 (This step should have been covered in "1_Full_env_creation" file  )
 
 Make sure our KubesMaster node is able to login Worker nodes passwordless, 
-# ssh-keygen
-
+ssh-keygen
+# Kops Setup
 We would also require a S3 Bucket, for persistent data. 
 So create a S3 bucket and give permission to EC2 instance to access that bucket.
 (This step should have been covered in "1_Full_env_creation" file  )
@@ -89,8 +89,9 @@ kops create cluster \
 --dns private \
 --master-count 2
 
-Hence going forward always export S3 bucket.	 
-# export KOPS_STATE_STORE=s3://bucket-name
+Hence going forward always export S3 bucket.	
+
+export KOPS_STATE_STORE=s3://bucket-name
 
    
 Useful cmds   
@@ -121,8 +122,13 @@ Once Done, save and exit.
 
 ![](images/Selection_633.png)
 
-High Level Jenkins deployment
+# High Level Jenkins deployment
 
+kubectl create ns development
+
+create a persistentvolumeclaim and storage class for Jenkins.
+
+It will create EBS volume 
 Create storage.yml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -149,7 +155,7 @@ spec:
     requests:
       storage: 5Gi
 
-
+![](images/Selection_634.png)
 
 
 
