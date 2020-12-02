@@ -129,7 +129,8 @@ kubectl create ns development
 create a persistentvolumeclaim and storage class for Jenkins.
 
 It will create EBS volume 
-Create storage.yml
+
+`Create storage.yml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -140,9 +141,10 @@ parameters:
 reclaimPolicy: Retain
 mountOptions:
   - debug
+  
 than create a pvc.yml
 ---
-kind: PersistentVolumeClaim
+`kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: jenkinsagclass
@@ -151,9 +153,9 @@ spec:
   storageClassName: standard
   accessModes:
   -  ReadWriteOnce
-  resources:
+  `resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi`
 
 ![](images/Selection_634.png)
 
