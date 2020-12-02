@@ -53,8 +53,6 @@ Then in AWS go to identity access manager, get the user below keys, as they woul
 Access key id:
 Secret Access key:
 
-## aws configure
-
 put_ur_access_key:
 put_ur_secret_access_key:
 
@@ -129,7 +127,7 @@ kubectl create ns development
 create a persistentvolumeclaim and storage class for Jenkins.
 
 It will create EBS volume 
-
+```
 Create storage.yml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -155,7 +153,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-      
+```
 
 ![](images/Selection_634.png)
 
