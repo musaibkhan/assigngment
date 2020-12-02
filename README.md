@@ -207,12 +207,15 @@ spec:
 ```
 
 
-Setup Grafana and Promethrous
-
+# Setup Grafana and Promethrous
+```
 kubectl create namespace monitoring
 
 helm install prometheus stable/prometheus-operator --namespace monitoring
 	  
 kubectl get po -n monitoring
+```
+![](images/Selection_635.png)
+
 
 
